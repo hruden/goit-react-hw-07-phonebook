@@ -20,7 +20,7 @@ export const ContactsItem = styled.li`
         margin-right: 5px;
     }
 `
-export const DeletContact = styled.button`
+export const DeleteContact = styled.button`
     margin-left: auto;
     &:hover{
         border-color: #DC143C;

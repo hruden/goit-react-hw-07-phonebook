@@ -1,6 +1,6 @@
-// const ACTIONS = Object.freeze({
-//     ADD_CONTACTS: 'contacts/addContact',
-//     REMOVE_CONTACTS: 'contacts/removeContact',
-//     FILTER_CONTACTS: 'filter/filterContacts',
-// })
-// export default ACTIONS
+const STATUS = {
+    PENDING: 'pending',
+    FULFILLED: 'fulfilled',
+    REJECTED: 'rejected',
+};
+export default STATUS;

@@ -2,12 +2,21 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { Container } from './App.styled';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchContacts, useFetchContactsQuery } from 'api/fetch';
+import { addContacts } from 'redux/slice';
 
 export function App () {
   // const { searchContact,} = useContext(Context)
   const {contacts, filter} = useSelector(state=> state.contactsBook)
-  // const {filter} = useSelector(state=>state.filter)
+  const {data} = useFetchContactsQuery()
+  const dispatch = useDispatch()
+  // useEffect(()=>{
+  //   dispatch(addContacts(data))
+  //   console.log(contacts)
+  // }, [dispatch])
+
   
   const findContact = () =>{
     return contacts.filter((contact) => contact.name.toLocaleLowerCase().includes(filter)
@@ -20,7 +29,7 @@ export function App () {
 
         <h2>Contacts</h2>
         <Filter/>
-        { findContact().length ? (<ContactList list={findContact()}/>
+        { findContact().length ? (<ContactList/>
         ): (<p>No matches found!</p>)} 
       </Container>
     );

@@ -1,20 +1,87 @@
-const { createSlice } = require('@reduxjs/toolkit');
+// -------------------------Import-------------------
+// import STATUS from './constans';
+// import {
+//   changeThunkStatus,
+//   handleFulfilledAdd,
+//   handleFulfilledDel,
+//   handleFulfilledGet,
+//   handlePending,
+//   handleRejected,
+// } from './service/fnSlice';
+// import{ fetchContactsThunk, addContactThunk, deleteContactThunk } from "./thunk";
+
+
+const { createSlice, isAnyOf } = require('@reduxjs/toolkit');
+
+// -------------------------Import-------------------
 
 const initialState = {
-  contacts: [
-    // { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    // { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    // { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    // { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  ],
+  contacts: [],
+    isLoading: false,
+    error: null,
   filter: '',
 };
+
+// export const contactsSlice = createSlice({
+//   name: 'contactsBook',
+//   initialState,
+//   reducers: {
+//     filterContacts: (state, action) => {
+//       return {
+//         ...state,
+//         filter: action.payload,
+//       };
+//     },
+//   },
+//   extraReducers: builder => {
+//     builder
+//       .addCase(fetchContactsThunk.fulfilled, handleFulfilledGet)
+//       .addCase(addContactThunk.fulfilled, handleFulfilledAdd)
+//       .addCase(deleteContactThunk.fulfilled, handleFulfilledDel)
+//       .addMatcher(isAnyOf(...changeThunkStatus('pending')), handlePending)
+//       .addMatcher(
+//         isAnyOf(...changeThunkStatus('rejected')),
+//         handleRejected
+//       );
+//   },
+// });
+// export default contactsSlice.reducer;
+// export const { filterContacts } = contactsSlice.actions;
+// const arrayThunks = [fetchContactsThunk, addContactThunk, deleteContactThunk]
+// const changeThunkStatus = type => {
+//   arrayThunks.map(arr => arr[type]);
+//   };
+//    const handlePending = state => {
+//   state.contacts.isLoading = true;
+//   };
+//   const handleFulfilled = state => {
+//     state.contacts.isLoading = false;
+//     state.contacts.error = '';
+//   };
+//    const handleFulfilledGet = (state, { payload }) => {
+//     handleFulfilled(state)
+//     state.contacts.items = payload;
+//   };
+//    const handleFulfilledAdd = (state, { payload }) => {
+//     handleFulfilled(state)
+//     state.contacts.items.push(payload);
+//   };
+//    const handleFulfilledDel = (state, { payload }) => {
+//     handleFulfilled(state)
+//     state.contacts.items = state.contacts.items.filter(
+//       el => el.id !== payload.id
+//     );
+//   };
+//    const handleRejected = (state, { payload }) => {
+//     state.contacts.isLoading = false;
+//     state.contacts.error = payload;
+//   };
 
 const contactsSlice = createSlice({
   name: 'contactsBook',
   initialState,
   reducers: {
-    addContact: (state, action) => {
+    addContacts: (state, action) => {
       return { ...state, contacts: [...state.contacts, action.payload] };
     },
     removeContact: (state, action) => {
@@ -32,7 +99,9 @@ const contactsSlice = createSlice({
       };
     },
   },
+
 });
-export const { addContact, removeContact, filterContacts } =
+export const { addContacts, removeContact, filterContacts } =
   contactsSlice.actions;
 export default contactsSlice.reducer;
+

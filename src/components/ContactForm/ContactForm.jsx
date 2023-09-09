@@ -6,8 +6,9 @@ import {
 } from './ContactForm.styled';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector} from 'react-redux';
-import { addContact } from 'redux/slice';
-import { nanoid } from 'nanoid';
+import { addContacts } from 'redux/slice';
+import { useAddContactMutation } from 'api/fetch';
+// import { nanoid } from 'nanoid';
 
 
 export function ContactForm() {
@@ -15,6 +16,7 @@ export function ContactForm() {
   const [number, setNumber] = useState('');
   // const {contacts, setContacts} = useContext(Context)
   const {contacts} = useSelector(state=> state.contactsBook)
+  const [addContact, { isLoading: isAdding }] = useAddContactMutation()
 
   const dispatch = useDispatch();
 
@@ -35,15 +37,16 @@ export function ContactForm() {
     const newContact = {
       name: name,
       number: number,
-      id: nanoid()
+      // id: nanoid()
       }
       const nameCheck = contacts.find(({name})=> name === newContact.name)
       if(nameCheck){
         alert(`${newContact.name} is already in contacts`)
         return reset()
       }
-    dispatch(
       addContact(newContact)
+    dispatch(
+      addContacts(newContact)
     );
     reset();
   };
@@ -73,7 +76,7 @@ export function ContactForm() {
         onChange={handChange}
         value={number}
       />
-      <AddContactBtn type="submit">add Contact</AddContactBtn>
+      <AddContactBtn type="submit" disabled={isAdding}>add Contact</AddContactBtn>
     </FormFoneBook>
   );
 }
