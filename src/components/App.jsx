@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { Container } from './App.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchContacts, useFetchContactsQuery } from 'api/fetch';
+import { useFetchContactsQuery } from 'api/fetch';
 import { addContacts } from 'redux/slice';
 
 export function App () {
@@ -12,10 +13,10 @@ export function App () {
   const {contacts, filter} = useSelector(state=> state.contactsBook)
   const {data} = useFetchContactsQuery()
   const dispatch = useDispatch()
-  // useEffect(()=>{
-  //   dispatch(addContacts(data))
-  //   console.log(contacts)
-  // }, [dispatch])
+  useEffect(()=>{
+    dispatch(addContacts(data))
+    console.log(contacts)
+  }, [dispatch])
 
   
   const findContact = () =>{

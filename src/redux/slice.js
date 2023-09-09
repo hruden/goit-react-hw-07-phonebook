@@ -11,7 +11,7 @@
 // import{ fetchContactsThunk, addContactThunk, deleteContactThunk } from "./thunk";
 
 
-const { createSlice, isAnyOf } = require('@reduxjs/toolkit');
+const { createSlice } = require('@reduxjs/toolkit');
 
 // -------------------------Import-------------------
 

@@ -9,7 +9,7 @@ export const ContactList = () => {
     const dispatch = useDispatch()
     const {data:list, error, isFetching, isSuccess, isError} = useFetchContactsQuery()
     const [deleteProduct, isLoading] = useDeleteContactMutation()
-    const removeContact = (id)=>{
+    const removeContacts = (id)=>{
         dispatch(removeContact(id))
         deleteProduct(id)
 
@@ -23,7 +23,7 @@ if(isSuccess){
         <ContactsBook>
             {list.map(({id, name, number}) => 
                 <ContactsItem key={id}>{name}: {number}
-                    <DeleteContact onClick={(removeContact(id))} disabled={isLoading}>Delete</DeleteContact>
+                    <DeleteContact onClick={(removeContacts(id))} disabled={isLoading}>Delete</DeleteContact>
                 </ContactsItem>            
             )}
         </ContactsBook>
