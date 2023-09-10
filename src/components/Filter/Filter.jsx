@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterContacts } from 'redux/slice';
+// import { fetchContactsThunk } from 'redux/thunk';
 export const Filter = () => {
   // const { searchContact, setSearchContact } = useContext(Context);
   const {filter} = useSelector(state=>state.contactsBook)

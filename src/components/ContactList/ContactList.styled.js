@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import Spinner from 'react-bootstrap/Spinner';
+
 export const  ContactsBook = styled.ul`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding-left: 5px;
-    width: 300px;
+    padding: 15px 5px;
+    width: 400px;
 `
 export const ContactsItem = styled.li`
     position: relative;
@@ -27,4 +29,7 @@ export const DeleteContact = styled.button`
         background-color: #DC143C;
         color: white;
     }
+`
+export const DeleteSpinner = styled(Spinner)`
+    margin-left: auto;
 `

@@ -1,28 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { deleteContact, fetchContacts } from 'api/fetch';
-import { addContact } from './slice';
+import { addContact, deleteContact, fetchContacts } from 'api/fetch';
 
 export const fetchContactsThunk = createAsyncThunk('contacts/get', () => {
-  try {
-    return fetchContacts();
-  } catch (error) {
-    return error;
-  }
+  return fetchContacts();
 });
-export const addContactThunk = createAsyncThunk('contacts/add', contact => {
-  try {
-    return addContact(contact);
-  } catch (error) {
-    return error;
-  }
+export const addContactThunk = createAsyncThunk('contacts/add', (contact) => {
+  return addContact(contact);
 });
 export const deleteContactThunk = createAsyncThunk(
   'contacts/delete',
-  contactId => {
-    try {
-      return deleteContact(contactId);
-    } catch (error) {
-      return error;
-    }
+  (contactId) => {
+    return deleteContact(contactId);
   }
 );

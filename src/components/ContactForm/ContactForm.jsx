@@ -4,19 +4,16 @@ import {
   FormFoneBook,
   InputFoneBook,
 } from './ContactForm.styled';
+import Spinner from 'react-bootstrap/Spinner';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector} from 'react-redux';
-import { addContact } from 'redux/slice';
-// import { useAddContactMutation } from 'api/fetch';
-// import { nanoid } from 'nanoid';
+import { addContactThunk } from 'redux/thunk';
 
 
 export function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  // const {contacts, setContacts} = useContext(Context)
-  const {contacts} = useSelector(state=> state.contactsBook)
-  // const [addContact, { isLoading: isAdding }] = useAddContactMutation()
+  const {contacts, isLoading} = useSelector(state=> state.contactsBook)
 
   const dispatch = useDispatch();
 
@@ -46,7 +43,7 @@ export function ContactForm() {
       }
       // addContact(newContact)
     dispatch(
-      addContact(newContact)
+      addContactThunk(newContact)
     );
     reset();
   };
@@ -76,7 +73,7 @@ export function ContactForm() {
         onChange={handChange}
         value={number}
       />
-      <AddContactBtn type="submit">add Contact</AddContactBtn>
+      {isLoading? <Spinner animation="grow" variant="primary"/>:<AddContactBtn type="submit">add Contact</AddContactBtn>}
     </FormFoneBook>
   );
 }
