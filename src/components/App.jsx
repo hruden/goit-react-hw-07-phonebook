@@ -12,7 +12,7 @@ import { fetchContactsThunk } from 'redux/thunk';
 
 export function App () {
   // const { searchContact,} = useContext(Context)
-  const {contacts, filter} = useSelector(state=> state.contactsBook)
+  const {contacts,} = useSelector(state=> state.contactsBook)
   // const {data} = useFetchContactsQuery()
   const dispatch = useDispatch()
   useEffect(()=>{
