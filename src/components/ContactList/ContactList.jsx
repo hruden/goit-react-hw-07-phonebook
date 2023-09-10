@@ -1,37 +1,38 @@
-import { useDeleteContactMutation, useFetchContactsQuery } from "api/fetch";
+// import { useDeleteContactMutation, useFetchContactsQuery } from "api/fetch";
 import { ContactsBook, ContactsItem, DeleteContact } from "./ContactList.styled"
 import PropTypes from 'prop-types';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeContact } from "redux/slice";
 
 
 export const ContactList = () => {
     const dispatch = useDispatch()
-    const {data:list, error, isFetching, isSuccess, isError} = useFetchContactsQuery()
-    const [deleteProduct, isLoading] = useDeleteContactMutation()
+    const {contacts} = useSelector(state=> state.contactsBook)
+    // const {data:list, error, isFetching, isSuccess, isError} = useFetchContactsQuery()
+    // const [deleteProduct, isLoading] = useDeleteContactMutation()
     const removeContacts = (id)=>{
         dispatch(removeContact(id))
-        deleteProduct(id)
+        // deleteProduct(id)
 
     }
 
-if(isFetching){
-    return <div>...loading</div>
-}
-if(isSuccess){
+// if(isFetching){
+//     return <div>...loading</div>
+// }
+
     return (
         <ContactsBook>
-            {list.map(({id, name, number}) => 
-                <ContactsItem key={id}>{name}: {number}
-                    <DeleteContact onClick={(removeContacts(id))} disabled={isLoading}>Delete</DeleteContact>
+            {contacts.map(({id, name, phone}) => 
+                <ContactsItem key={id}>{name}: {phone}
+                    <DeleteContact onClick={(removeContacts(id))}>Delete</DeleteContact>
                 </ContactsItem>            
             )}
         </ContactsBook>
     )
-}
-if(isError){
-    return(<div>{error.message}</div>)
-}
+
+// if(isError){
+//     return(<div>{error.message}</div>)
+// }
 }
     
 

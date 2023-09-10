@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 import contactsReducer from './slice';
 import { configureStore } from '@reduxjs/toolkit';
-import { contactsApi } from 'api/fetch';
-import { setupListeners } from '@reduxjs/toolkit/query'
+// import { contactsApi } from 'api/fetch';
+// import { setupListeners } from '@reduxjs/toolkit/query'
+// import { fetchContactsThunk } from './thunk';
 // import storage from 'redux-persist/lib/storage';
 // import {
 //   persistStore,
@@ -23,14 +24,14 @@ import { setupListeners } from '@reduxjs/toolkit/query'
 
 const rootReducer = combineReducers({
   contactsBook: contactsReducer,
-  [contactsApi.reducerPath]: contactsApi.reducer,
+  // [contactsApi.reducerPath]: contactsApi.reducer,
 });
 // const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(contactsApi.middleware),
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware().concat(contactsApi.middleware),
 //   middleware: getDefaultMiddleware =>
 //     getDefaultMiddleware({
 //       serializableCheck: {
@@ -38,5 +39,5 @@ export const store = configureStore({
 //       },
 //     }),
 });
-setupListeners(store.dispatch)
+// setupListeners(store.dispatch)
 // export const persistor = persistStore(store);

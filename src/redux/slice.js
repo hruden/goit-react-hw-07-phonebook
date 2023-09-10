@@ -8,17 +8,17 @@
 //   handlePending,
 //   handleRejected,
 // } from './service/fnSlice';
-// import{ fetchContactsThunk, addContactThunk, deleteContactThunk } from "./thunk";
+import{ fetchContactsThunk, addContactThunk, deleteContactThunk } from "./thunk";
 
 
-const { createSlice } = require('@reduxjs/toolkit');
+const { createSlice, isAnyOf } = require('@reduxjs/toolkit');
 
 // -------------------------Import-------------------
 
 const initialState = {
   contacts: [],
-    isLoading: false,
-    error: null,
+  isLoading: false,
+  error: null,
   filter: '',
 };
 
@@ -33,49 +33,49 @@ const initialState = {
 //       };
 //     },
 //   },
-//   extraReducers: builder => {
-//     builder
-//       .addCase(fetchContactsThunk.fulfilled, handleFulfilledGet)
-//       .addCase(addContactThunk.fulfilled, handleFulfilledAdd)
-//       .addCase(deleteContactThunk.fulfilled, handleFulfilledDel)
-//       .addMatcher(isAnyOf(...changeThunkStatus('pending')), handlePending)
-//       .addMatcher(
-//         isAnyOf(...changeThunkStatus('rejected')),
-//         handleRejected
-//       );
-//   },
+  // extraReducers: builder => {
+  //   builder
+  //     .addCase(fetchContactsThunk.fulfilled, handleFulfilledGet)
+  //     .addCase(addContactThunk.fulfilled, handleFulfilledAdd)
+  //     .addCase(deleteContactThunk.fulfilled, handleFulfilledDel)
+  //     .addMatcher(isAnyOf(...changeThunkStatus('pending')), handlePending)
+  //     .addMatcher(
+  //       isAnyOf(...changeThunkStatus('rejected')),
+  //       handleRejected
+  //     );
+  // },
 // });
 // export default contactsSlice.reducer;
 // export const { filterContacts } = contactsSlice.actions;
-// const arrayThunks = [fetchContactsThunk, addContactThunk, deleteContactThunk]
-// const changeThunkStatus = type => {
-//   arrayThunks.map(arr => arr[type]);
-//   };
-//    const handlePending = state => {
-//   state.contacts.isLoading = true;
-//   };
-//   const handleFulfilled = state => {
-//     state.contacts.isLoading = false;
-//     state.contacts.error = '';
-//   };
-//    const handleFulfilledGet = (state, { payload }) => {
-//     handleFulfilled(state)
-//     state.contacts.items = payload;
-//   };
-//    const handleFulfilledAdd = (state, { payload }) => {
-//     handleFulfilled(state)
-//     state.contacts.items.push(payload);
-//   };
-//    const handleFulfilledDel = (state, { payload }) => {
-//     handleFulfilled(state)
-//     state.contacts.items = state.contacts.items.filter(
-//       el => el.id !== payload.id
-//     );
-//   };
-//    const handleRejected = (state, { payload }) => {
-//     state.contacts.isLoading = false;
-//     state.contacts.error = payload;
-//   };
+const arrayThunks = [fetchContactsThunk, addContactThunk, deleteContactThunk]
+const changeThunkStatus = type => {
+  arrayThunks.map(arr => arr[type]);
+  };
+   const handlePending = state => {
+  state.isLoading = true;
+  };
+  const handleFulfilled = state => {
+    state.isLoading = false;
+    state.error = '';
+  };
+   const handleFulfilledGet = (state, { payload }) => {
+    handleFulfilled(state)
+    state.contacts = payload;
+  };
+   const handleFulfilledAdd = (state, { payload }) => {
+    handleFulfilled(state)
+    state.contacts.push(payload);
+  };
+   const handleFulfilledDel = (state, { payload }) => {
+    handleFulfilled(state)
+    state.contacts = state.contacts.items.filter(
+      el => el.id !== payload.id
+    );
+  };
+   const handleRejected = (state, { payload }) => {
+    state.isLoading = false;
+    state.error = payload;
+  };
 
 const contactsSlice = createSlice({
   name: 'contactsBook',
@@ -98,10 +98,20 @@ const contactsSlice = createSlice({
         filter: action.payload,
       };
     },
+    extraReducers: builder => {
+      builder
+        .addCase(fetchContactsThunk.fulfilled, handleFulfilledGet)
+        .addCase(addContactThunk.fulfilled, handleFulfilledAdd)
+        .addCase(deleteContactThunk.fulfilled, handleFulfilledDel)
+        .addMatcher(isAnyOf(...changeThunkStatus('pending')), handlePending)
+        .addMatcher(
+          isAnyOf(...changeThunkStatus('rejected')),
+          handleRejected
+        );
+    },
   },
 
 });
-export const { addContacts, removeContact, filterContacts } =
-  contactsSlice.actions;
+export const { addContact, removeContact, filterContacts } = contactsSlice.actions;
 export default contactsSlice.reducer;
 
