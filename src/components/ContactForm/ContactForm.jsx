@@ -8,12 +8,14 @@ import Spinner from 'react-bootstrap/Spinner';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector} from 'react-redux';
 import { addContactThunk } from 'redux/thunk';
+import { selectContacts, selectIsLoading } from 'redux/selectors';
 
 
 export function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const {contacts, isLoading} = useSelector(state=> state.contactsBook)
+  const contacts = useSelector(selectContacts)
+  const isLoading = useSelector(selectIsLoading)
 
   const dispatch = useDispatch();
 

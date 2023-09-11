@@ -2,20 +2,22 @@
 import { ContactsBook, ContactsItem, DeleteContact, DeleteSpinner } from "./ContactList.styled"
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector} from "react-redux";
+import { getVisibleContacts, selectIsLoading } from "redux/selectors";
 // import { removeContact } from "redux/slice";
 import { deleteContactThunk } from "redux/thunk";
 
 
-export const ContactList = ({list}) => {
+export const ContactList = () => {
     const dispatch = useDispatch()
-    const {isLoading} = useSelector(state=> state.contactsBook)
+    const isLoading = useSelector(selectIsLoading)
+    const contactsList = useSelector(getVisibleContacts)
 // if(isFetching){
 //     return <div>...loading</div>
 // }
 
     return (
         <ContactsBook>
-            {list.map(({id, name, phone}) => 
+            {contactsList.map(({id, name, phone}) => 
                 <ContactsItem key={id}>{name}: {phone}
                     {isLoading? <DeleteSpinner animation="border" variant="danger"/>:<DeleteContact onClick={()=>dispatch(deleteContactThunk(id))}>Delete</DeleteContact>}
                 </ContactsItem>            
